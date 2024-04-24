@@ -77,9 +77,8 @@ public class Initializer extends AbstractHttpSessionApplicationInitializer { // 
 		static ProcessWrapper registerGeodeServerRuntimeShutdownHook(ProcessWrapper geodeServer) {
 
 			if (geodeServer != null) {
-				Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-					ForkingClientServerIntegrationTestsSupport.stop(geodeServer);
-				}, "Apache Geode Server Runtime Shutdown Hook"));
+				Runtime.getRuntime().addShutdownHook(new Thread(() ->
+					ForkingClientServerIntegrationTestsSupport.stop(geodeServer), "Apache Geode Server Runtime Shutdown Hook"));
 			}
 
 			return geodeServer;

@@ -783,7 +783,7 @@ public class GemFireHttpSessionConfiguration extends AbstractGemFireHttpSessionC
 	}
 
 	private boolean isCauseBecauseNoSpringSessionGemFireConfigurerPresent(Exception cause) {
-		return (!(cause instanceof NoUniqueBeanDefinitionException) && cause instanceof NoSuchBeanDefinitionException);
+		return !(cause instanceof NoUniqueBeanDefinitionException) && cause instanceof NoSuchBeanDefinitionException;
 	}
 
 	private <T> SpringSessionGemFireConfigurer applySpringSessionGemFireConfigurerConfiguration(
@@ -1129,9 +1129,9 @@ public class GemFireHttpSessionConfiguration extends AbstractGemFireHttpSessionC
 	 */
 	boolean isExpirationAllowed(GemFireCache gemfireCache) {
 
-		return !(GemFireUtils.isClient(gemfireCache)
-			? GemFireUtils.isProxy(getClientRegionShortcut())
-			: GemFireUtils.isProxy(getServerRegionShortcut()));
+		return GemFireUtils.isClient(gemfireCache)
+			? GemFireUtils.isProxy(getServerRegionShortcut())
+			: GemFireUtils.isProxy(getClientRegionShortcut());
 	}
 
 	/**
